@@ -5,6 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!--подключим фавиконку -->
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+  <!-- подключим допстили из библиотеки OverlayScrollbars-->
+  <link href="css/overlayscrollbars.min.css" rel="stylesheet">
+
   <link href="css/style.css" rel="stylesheet">
 
   <script src="js/script.js" type="module"></script>
@@ -75,19 +81,19 @@
         <div class="container report__container">
           <h2 class="report__title">Отчет</h2>
 
-          <div class="report__dates">
+          <form class="report__dates">
             <div class="report__date">
               <label for="start-date">Начало периода</label>
-              <input type="date" id="start-date">
+              <input type="date" id="start-date" name="startDate">
             </div>
 
             <div class="report__date">
               <label for="end-date">Конец периода</label>
-              <input type="date" id="end-date">
+              <input type="date" id="end-date" name="endDate">
             </div>
 
             <button class="report__button">Показать</button>
-          </div>
+          </form>
 
           <table class="report__table">
             <thead>
@@ -102,42 +108,8 @@
               </tr>
             </thead>
 
-            <tbody>
-              <tr class="report__row">
-                <td class="report__cell">Продукты питания</td>
-                <td class="report__cell">1000</td>
-                <td class="report__cell">Магазин Spar</td>
-                <td class="report__cell">01.01.2021</td>
-                <td class="report__cell">расход</td>
-                <td class="report__action-cell">
-                  <button
-                    class="report__button report__button_table">&#10006;</button>
-                </td>
-              </tr>
-
-              <tr class="report__row">
-                <td class="report__cell">Продукты питания</td>
-                <td class="report__cell">1000</td>
-                <td class="report__cell">Магазин Spar</td>
-                <td class="report__cell">01.01.2021</td>
-                <td class="report__cell">расход</td>
-                <td class="report__action-cell">
-                  <button
-                    class="report__button report__button_table">&#10006;</button>
-                </td>
-              </tr>
-
-              <tr class="report__row">
-                <td class="report__cell">Продукты питания</td>
-                <td class="report__cell">1000</td>
-                <td class="report__cell">Магазин Spar</td>
-                <td class="report__cell">01.01.2021</td>
-                <td class="report__cell">расход</td>
-                <td class="report__action-cell">
-                  <button
-                    class="report__button report__button_table">&#10006;</button>
-                </td>
-              </tr>
+            <tbody class="report__operation-list">
+        
             </tbody>
           </table>
 
