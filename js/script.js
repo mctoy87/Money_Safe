@@ -70,8 +70,18 @@ const closeReport = ({ target }) => {
     // клик по кнопке Открыть м.б. т.к. событие и таргет один у ф-и откр и закр Отчета
     (!target.closest('.report') && target !== financeReport)
   ) {
-    // то закрываем Отчет
-    report.classList.remove('report__open'); 
+    // анимируем закрытие отчета через JSAP
+    gsap.to(report, {
+    opacity: 0,
+    scale: 0,
+    duration: 0.3,
+    ease: 'power2.in',
+    onComplete() {
+      // делаем невидимым отчет в конце анимации
+      report.style.visibility = 'hidden';
+    },
+  });
+
     // убираем слушателя всего документа
     document.removeEventListener('click', closeReport)
   }
@@ -79,8 +89,15 @@ const closeReport = ({ target }) => {
 
 // функция открыть Отчет
 const openReport = () => {
-  // добавим класс Отчету чтобы открыть его
-  report.classList.add('report__open');
+  // делаем видимым отчет
+  report.style.visibility = 'visible';
+  // анимируем открытие отчета через JSAP
+  gsap.to(report, {
+    opacity: 1,
+    scale: 1,
+    duration: 0.3,
+    ease: 'power2.out',
+  });
 
   // слушаем клик по крестику для закрытия Отчета
   document.addEventListener('click', closeReport)
@@ -149,13 +166,25 @@ const renderReport = (data) => {
 
 // слушаем событие клика на кнопку открыть Отчет
 financeReport.addEventListener('click', async () => {
-  // открыть Отчет через ф-ю
-  openReport();
+  // сохраняем первоначальный текст в Отчете
+  const textContent = financeReport.textContent;
+
+  // вместо прелоадера пишем тестом загрузка и disaled отчет
+  financeReport.textContent = "Загрузка...";
+  financeReport.disabled = true;
+
   // запрос к серверу и получение данных
   const data = await getData("/test");
 
+  // убирам прелоадер и возвращаем прежний текст и делаем кнопку опять активной
+  financeReport.textContent = textContent;
+  financeReport.disabled = false;
+
   // отобразить данные с сервера
   renderReport(data);
+
+  // открыть Отчет через ф-ю
+  openReport();
 });
 
 // слушаем событие клика на Отчет
